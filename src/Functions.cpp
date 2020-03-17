@@ -14,7 +14,7 @@ double radToDeg(double radians){return radians/M_PI *180;}
 double inchToTick(double inch){return (inch * (wheelSize*M_PI)) * 360;}
 
 //passes a real number and returns the sign
-int sgn(double num){return (num < 0) ? -1 : (num > 0) ? 1 : 0;}
+int sgn(double num) return num / abs(num);
 
 void moveBase(int power, int strafe, int turn)
 {
@@ -74,7 +74,7 @@ void update(void*)
 	    }
 		  alpha = global_angle + beta;
 
-        //update global x, y and angle
+      //update global x, y and angle
 		  Xx = h2 * cos(alpha);
 		  Xy = h2 * -sin(alpha);
 		  Yx = h * sin(alpha);

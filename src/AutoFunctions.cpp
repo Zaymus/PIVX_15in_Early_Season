@@ -35,7 +35,7 @@ int driveFB(double target, int maxVel, int minVel)
     else if (pwr_Y < minVel){pwr_Y = minVel;}
 
     //stops running x correction when x coordinate is reached
-    if(error_Y <= 0.25 && error_Y >= 0.25){pwr_Y = 0;}
+    fabs(error_Y) <= 0.25 ? pwr_Y = 0;
 
     return pwr_Y;//returns the pwr to function call
 }
@@ -58,7 +58,7 @@ int driveLR(double target, int maxVel, int minVel)
     else if (pwr_X < minVel){pwr_X = minVel;}
 
     //stops running x correction when x coordinate is reached
-    if(error_X <= 0.25 && error_X >= 0.25){pwr_X = 0;}
+    fabs(error_X) <= 0.25 ? pwr_X = 0;
 
     return pwr_X;//returns the pwr to function call
 }
@@ -81,7 +81,7 @@ int driveRot(double target, int maxVel, int minVel)
     moveBase(0, 0, pwr_A);
 
     //stops running x correction when x coordinate is reached
-    if(error_A < degToRad(0.25) && error_A > degToRad(-0.25)){pwr_A = 0;}
+    fabs(error_A) <= degToRad(0.25) ? pwr_A = 0;
 
     return pwr_A;//returns the pwr to function call
 }
@@ -105,6 +105,6 @@ void autoDrive(double x, double y, double a, int maxVelRot, int minVelRot, int m
         move(power, strafe, turn);//sends power to the base motors after function calls
 
         pros::delay(5);
-    }while(!(error_X <= 0.25 && error_X >= 0.25) && !(error_Y <= 0.25 && error_Y >= 0.25) && !(error_A <= 0.5 && error_A >= 0.5));//stops looping when all translations and rotations are settled
+    }while(!((fabs(error_X) <= 0.25) && (fabs(error_X) <= 0.25) && (fabs(error_A) <= degToRad(0.25))));//stops looping when all translations and rotations are settled
     brake();//holds the motor positions
 }
