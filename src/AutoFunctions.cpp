@@ -31,8 +31,7 @@ int driveFB(double target, int maxVel, int minVel)
     pwr_Y = P_Y + I_Y + D_Y;
 
     //overrides power if it is too high or too low
-    if(pwr_Y > maxVel){ pwr_Y= maxVel;}
-    else if (pwr_Y < minVel){pwr_Y = minVel;}
+    pwr_Y > maxVel ? pwr_Y = maxVel : pwr_Y < minVel ? pwr_Y = minVel;
 
     //stops running x correction when x coordinate is reached
     fabs(error_Y) <= 0.25 ? pwr_Y = 0;
@@ -54,8 +53,7 @@ int driveLR(double target, int maxVel, int minVel)
     pwr_X = P_X + I_X + D_X;
 
     //overrides power if it is too high or too low
-    if(pwr_X > maxVel){ pwr_X = maxVel;}
-    else if (pwr_X < minVel){pwr_X = minVel;}
+    pwr_X > maxVel ? pwr_X = maxVel : pwr_X < minVel ? pwr_X = minVel;
 
     //stops running x correction when x coordinate is reached
     fabs(error_X) <= 0.25 ? pwr_X = 0;
@@ -77,6 +75,8 @@ int driveRot(double target, int maxVel, int minVel)
     //overrides power if it is too high or too low
     if(pwr_A > maxVel){ pwr_A = maxVel;}
     else if (pwr_A < minVel){pwr_A = minVel;}
+
+    pwr_A > maxVel ? pwr_A = maxVel : pwr_A < minVel ? pwr_A = minVel;
 
     moveBase(0, 0, pwr_A);
 
