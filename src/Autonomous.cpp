@@ -3,7 +3,7 @@
 #include "Headers/Variables.hpp"
 #include "Headers/Functions.hpp"
 #include "Headers/AutoFunctions.hpp"
-double kP_X = 10, kD_X = 0, P_X = 0, D_X = 0, pwr_X = 0, error_X = 0, lastError_X = 0;
+
 int maxVel = 200, minVel = 0;
 void test(double target)
 {
