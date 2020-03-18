@@ -5,12 +5,11 @@
 
 extern pros::Controller master;
 
-extern int power = 0, strafe = 0, turn = 0, intakePow = 0;
-extern bool FBSettled = false, LRSettled = false, ROTSettled = false;
-double kP_X = 10, kD_X = 0, P_X = 0, D_X = 0, pwr_X = 0, error_X = 0, lastError_X = 0;
-extern double kP_Y = 0, kI_Y = 0, kD_Y = 0, P_Y = 0, I_Y = 0, D_Y = 0, pwr_Y = 0, error_Y = 0, lastError_Y = 0, totalError_Y = 0;
-extern double kP_A = 85, kD_A = 40, P_A = 0, D_A = 0, pwr_A = 0, error_A = 0, lastError_A = 0;
+extern int power, strafe, turn, intakePow;
+extern double kP_X, kD_X, P_X, D_X, pwr_X, error_X, lastError_X;
+extern double kP_Y, kI_Y, kD_Y, P_Y, I_Y, D_Y, pwr_Y, error_Y, lastError_Y, totalError_Y;
+extern double kP_A, kD_A, P_A, D_A, pwr_A, error_A, lastError_A;
 
-extern wheelSize = 2.75, distance_LR = 8.0511811, distance_B = -0.590551, xcoord = 0, ycoord = 0, global_angle = 0;
+extern double wheelSize, distance_LR, distance_B, xcoord, ycoord, global_angle;
 
 #endif

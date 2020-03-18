@@ -14,7 +14,7 @@ double radToDeg(double radians){return radians/M_PI *180;}
 double inchToTick(double inch){return (inch * (wheelSize*M_PI)) * 360;}
 
 //passes a real number and returns the sign
-int sgn(double num) return num / abs(num);
+int sgn(double num) {return (num < 0 ? -1 : num > 0 ? 1 : 0);}
 
 void moveBase(int power, int strafe, int turn)
 {
@@ -41,47 +41,47 @@ void update(void*)
 
     while (true)
     {
-      //amount encoders moved (radians)
+        //amount encoders moved (radians)
 	    newleft = LeftTracker.get_value() / 360.0 * (wheelSize * M_PI);//number of radians the left encoder moved
 	    newright = RightTracker.get_value() / 360.0 * (wheelSize * M_PI);//number of radians the right encoder moved
-      newback = BackTracker.get_value() / 360.0 * (wheelSize * M_PI);//number of radians the rear encoder moved
-      Right = newright - lastright;//the delta of the right encoder
-      Left = newleft - lastleft;//the delta of the left encoder
-      Back = newback - lastback;//the delta of the rear encoder
+        newback = BackTracker.get_value() / 360.0 * (wheelSize * M_PI);//number of radians the rear encoder moved
+        Right = newright - lastright;//the delta of the right encoder
+        Left = newleft - lastleft;//the delta of the left encoder
+        Back = newback - lastback;//the delta of the rear encoder
 
-      //update last values
+        //update last values
 	    lastright = newright;
 	    lastleft = newleft;
 	    lastback = newback;
 	    theta = (Left - Right) / distance_LR;//angle of the bot in radians
 
-      //if robot turned in any direction
+        //if robot turned in any direction
 	    if (theta != 0)
-      {
-		      radiusR = Right / theta;
-          beta = theta / 2.0;
-		      h = (radiusR + distance_LR / 2) * 2 * sin(beta);
-		      radiusB = Back / theta;
-		      h2 = (radiusB + distance_B) * 2 * sin(beta);
+        {
+		    radiusR = Right / theta;
+            beta = theta / 2.0;
+		    h = (radiusR + distance_LR / 2) * 2 * sin(beta);
+		    radiusB = Back / theta;
+		    h2 = (radiusB + distance_B) * 2 * sin(beta);
 	    }
 
       //if robot moved straight or didn't move
 	    else
-      {
-		      h = Right;
-		      h2 = Back;
-		      beta = 0;
+        {
+		    h = Right;
+		    h2 = Back;
+		    beta = 0;
 	    }
-		  alpha = global_angle + beta;
+		alpha = global_angle + beta;
 
       //update global x, y and angle
-		  Xx = h2 * cos(alpha);
-		  Xy = h2 * -sin(alpha);
-		  Yx = h * sin(alpha);
-		  Yy = h * cos(alpha);
-		  xcoord += Yx + Xx;
-		  ycoord += Yy + Xy;
-      global_angle += theta;
+		Xx = h2 * cos(alpha);
+		Xy = h2 * -sin(alpha);
+		Yx = h * sin(alpha);
+		Yy = h * cos(alpha);
+		xcoord += Yx + Xx;
+		ycoord += Yy + Xy;
+        global_angle += theta;
 
       pros::delay(20);
     }

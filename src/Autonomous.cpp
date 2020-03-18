@@ -9,27 +9,16 @@ void test(double target)
 {
     do
     {
-        error_X = target - xcoord;
-        totalError_X += error_X;
+        moveBase(int(driveFB(target, maxVel, minVel)), 0, 0);
 
-        P_X = error_X * kP_X;
-        D_X = (error_X - lastError_X) * kD_X;
-        lastError_X = error_X;
-
-        pwr_X = P_X + D_X;
-
-        //overrides power if it is too high or too low
-        if(pwr_X > maxVel){ pwr_X = maxVel;}
-        else if (pwr_X < minVel){pwr_X = minVel;}
-
-    }while(!(error_X < 0.25 && error_X > 0.25));
+    }while(fabs(error_Y) > 0.25);
     brake();
 }
 void red15()
 {
-    //test(90);
-    while(true)
-    {
-    moveBase(200, 0, 0);
-    }
+    test(24);
+    // while(true)
+    // {
+    // moveBase(0, 200, 0);
+    // }
 }
