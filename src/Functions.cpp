@@ -65,7 +65,7 @@ void update(void*)
 		    h2 = (radiusB + distance_B) * 2 * sin(beta);
 	    }
 
-      //if robot moved straight or didn't move
+        //if robot moved straight or didn't move
 	    else
         {
 		    h = Right;
@@ -74,7 +74,7 @@ void update(void*)
 	    }
 		alpha = global_angle + beta;
 
-      //update global x, y and angle
+        //update global x, y and angle
 		Xx = h2 * cos(alpha);
 		Xy = h2 * -sin(alpha);
 		Yx = h * sin(alpha);
@@ -83,7 +83,7 @@ void update(void*)
 		ycoord += Yy + Xy;
         global_angle += theta;
 
-      pros::delay(20);
+      pros::delay(5);
     }
 }
 
@@ -105,23 +105,22 @@ void print(void*)
 
         if(count % 2 == 0)//if count is an even number display motor temperatures
         {
-          pros::lcd::print(2, "B:LF:%dc, RF:%dc, LB:%dc, RB:%dc\n",
-              LFront.get_temperature(), RFront.get_temperature(), LBack.get_temperature(), RBack.get_temperature());
-          pros::lcd::print(3, "I:LF:%dc, RF:%dc, LB:%dc, RB:%dc\n",
-              LFIntake.get_temperature(), RFIntake.get_temperature(), LBIntake.get_temperature(), RBIntake.get_temperature());
-          pros::lcd::print(4, "Arm:L:%dc, R:%dc Tilt:L:%dc, R:%dc",
-              arm1.get_temperature(), arm2.get_temperature(), tilter1.get_temperature(), tilter2.get_temperature());
+            pros::lcd::print(2, "B:LF:%dc, RF:%dc, LB:%dc, RB:%dc\n",
+                LFront.get_temperature(), RFront.get_temperature(), LBack.get_temperature(), RBack.get_temperature());
+            pros::lcd::print(3, "I:LF:%dc, RF:%dc, LB:%dc, RB:%dc\n",
+                LFIntake.get_temperature(), RFIntake.get_temperature(), LBIntake.get_temperature(), RBIntake.get_temperature());
+            pros::lcd::print(4, "Arm:L:%dc, R:%dc Tilt:L:%dc, R:%dc",
+                arm1.get_temperature(), arm2.get_temperature(), tilter1.get_temperature(), tilter2.get_temperature());
         }
         else//if count is odd display current draw of the motors
         {
-          pros::lcd::print(2, "B:LF:%dA, RF:%dA, LB:%dA, RB:%dA\n",
-              LFront.get_current_draw(), RFront.get_current_draw(), LBack.get_current_draw(), RBack.get_current_draw());
-          pros::lcd::print(3, "I:LF:%dA, RF:%dA, LB:%dA, RB:%dA\n",
-              LFIntake.get_current_draw(), RFIntake.get_current_draw(), LBIntake.get_current_draw(), RBIntake.get_current_draw());
-          pros::lcd::print(4, "Arm:L:%dA, R:%dA Tilt:L:%dA, R:%dA",
-              arm1.get_current_draw(), arm2.get_current_draw(), tilter1.get_current_draw(), tilter2.get_current_draw());
+            pros::lcd::print(2, "B:LF:%dA, RF:%dA, LB:%dA, RB:%dA\n",
+                LFront.get_current_draw(), RFront.get_current_draw(), LBack.get_current_draw(), RBack.get_current_draw());
+            pros::lcd::print(3, "I:LF:%dA, RF:%dA, LB:%dA, RB:%dA\n",
+                LFIntake.get_current_draw(), RFIntake.get_current_draw(), LBIntake.get_current_draw(), RBIntake.get_current_draw());
+            pros::lcd::print(4, "Arm:L:%dA, R:%dA Tilt:L:%dA, R:%dA",
+                arm1.get_current_draw(), arm2.get_current_draw(), tilter1.get_current_draw(), tilter2.get_current_draw());
         }
-
         pros::delay(10);
     }
 }

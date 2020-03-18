@@ -73,12 +73,12 @@ void autoDrive(double x, double y, double a, int maxVelRot, int minVelRot, int m
 {
     do
     {
-      power = driveFB(y, maxVel, minVel);//sets forward/back translation to the pwr returned
-      strafe = driveLR(x, maxVel, minVel);//sets left/right translation to the pwr returned
-      turn = driveRot(a, maxVelRot, minVelRot);//sets rotation to the pwr return
-      moveBase(strafe, power, turn);//sends power to the base motors after function calls
+        power = driveFB(y, maxVel, minVel);//sets forward/back translation to the pwr returned
+        strafe = driveLR(x, maxVel, minVel);//sets left/right translation to the pwr returned
+        turn = driveRot(a, maxVelRot, minVelRot);//sets rotation to the pwr return
+        moveBase(power, strafe, turn);//sends power to the base motors after function calls
 
-      pros::delay(5);
-  }while(fabs(error_X) >= 0.25 && fabs(error_Y) >= 0.25 && fabs(error_A) >= degToRad(0.25));//stops looping when all translations and rotations are settled
+        pros::delay(5);
+    }while(fabs(error_X) >= 0.25 && fabs(error_Y) >= 0.25 && fabs(error_A) >= degToRad(0.25));//stops looping when all translations and rotations are settled
     brake();//holds the motor positions
 }
