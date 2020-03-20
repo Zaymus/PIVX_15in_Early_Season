@@ -80,7 +80,7 @@ void opcontrol()
         power = (master.get_analog(ANALOG_LEFT_Y) * (200.0/127.0));//forward back movement mapped to 200rpm
         turn = (master.get_analog(ANALOG_RIGHT_X) * (200.0/127.0) * 0.5);//left right straffing movement mapped to 200rpm
         strafe = (master.get_analog(ANALOG_LEFT_X) * (200.0/127.0));//rotational movement mapped to 200rpm
-        if(abs(turn) < 20) turn = 0;
+        if(abs(strafe) < 20) strafe = 0;
 
         if(master.get_digital(DIGITAL_L1)) intakePow = 200;//intake full power
         else if(master.get_digital(DIGITAL_L2)) intakePow = -100;//outtake half power
