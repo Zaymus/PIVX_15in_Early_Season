@@ -11,7 +11,7 @@ extern double degToRad(double degrees);
 extern double radToDeg(double radians);
 extern double inchToTick(double inch);
 extern int sgn(double num);
-extern void moveBase(int power = 0, int strafe = 0, int turn = 0);
+extern void moveBase(int y = 0, int x = 0, int a = 0);
 
 extern void update(void*);
 extern void print(void*);

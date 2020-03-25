@@ -16,7 +16,7 @@ trayPositions trayPos = low;
  */
 void initialize() {
     pros::Task updateTask(update);
-	pros::Task printTask(print);
+	//pros::Task printTask(print);
     pros::Task driveTask(drive);
     pros::Task intakeTask(intake);
 }
@@ -77,10 +77,10 @@ void opcontrol()
 {
 	while (true)
     {
-        power = (master.get_analog(ANALOG_LEFT_Y) * (200.0/127.0));//forward back movement mapped to 200rpm
-        turn = (master.get_analog(ANALOG_RIGHT_X) * (200.0/127.0) * 0.5);//left right straffing movement mapped to 200rpm
-        strafe = (master.get_analog(ANALOG_LEFT_X) * (200.0/127.0));//rotational movement mapped to 200rpm
-        if(abs(strafe) < 20) strafe = 0;
+        y = (master.get_analog(ANALOG_LEFT_Y) * (200.0/127.0));//forward back movement mapped to 200rpm
+        a = (master.get_analog(ANALOG_RIGHT_X) * (200.0/127.0) * 0.5);//left right straffing movement mapped to 200rpm
+        x = (master.get_analog(ANALOG_LEFT_X) * (200.0/127.0));//rotational movement mapped to 200rpm
+        if(abs(x) < 20) x = 0;
 
         if(master.get_digital(DIGITAL_L1)) intakePow = 200;//intake full power
         else if(master.get_digital(DIGITAL_L2)) intakePow = -100;//outtake half power

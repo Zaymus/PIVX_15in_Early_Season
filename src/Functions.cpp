@@ -16,12 +16,12 @@ double inchToTick(double inch){return (inch * (wheelSize*M_PI)) * 360;}
 //passes a real number and returns the sign
 int sgn(double num) {return (num < 0 ? -1 : num > 0 ? 1 : 0);}
 
-void moveBase(int power, int strafe, int turn)
+void moveBase(int y, int x, int a)
 {
-    LFront.move_velocity(power + turn + strafe);
-    LBack.move_velocity(power + turn - strafe);
-    RFront.move_velocity(power - turn - strafe);
-    RBack.move_velocity(power - turn + strafe);
+    LFront.move_velocity(y + a + x);
+    LBack.move_velocity(y + a - x);
+    RFront.move_velocity(y - a - x);
+    RBack.move_velocity(y - a + x);
 }
 
 //updates all tracking based variables each memory cycle
@@ -129,7 +129,7 @@ void drive(void*)
 {
     while(true)
     {
-        moveBase(power, strafe, turn);//move base motors according to controller input
+        moveBase(y, x, a);//move base motors according to controller input
         pros::delay(10);
     }
 }

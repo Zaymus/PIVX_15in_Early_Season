@@ -69,14 +69,14 @@ int driveRot(double target, int maxVel, int minVel)
 }
 
 //function that uses x,y and angle correction functions above to set motor power until all 3 motions have settled
-void autoDrive(double x, double y, double a, int maxVelRot, int minVelRot, int maxVel, int minVel)
+void autoDrive(double y, double x, double a, int maxVelRot, int minVelRot, int maxVel, int minVel)
 {
     do
     {
-        power = driveFB(y, maxVel, minVel);//sets forward/back translation to the pwr returned
-        strafe = driveLR(x, maxVel, minVel);//sets left/right translation to the pwr returned
-        turn = driveRot(a, maxVelRot, minVelRot);//sets rotation to the pwr return
-        moveBase(power, strafe, turn);//sends power to the base motors after function calls
+        y = driveFB(y, maxVel, minVel);//sets forward/back translation to the pwr returned
+        x = driveLR(x, maxVel, minVel);//sets left/right translation to the pwr returned
+        a = driveRot(a, maxVelRot, minVelRot);//sets rotation to the pwr return
+        moveBase(y, x, a);//sends power to the base motors after function calls
 
         pros::delay(5);
     }while(fabs(error_X) >= 0.25 && fabs(error_Y) >= 0.25 && fabs(error_A) >= degToRad(0.25));//stops looping when all translations and rotations are settled
