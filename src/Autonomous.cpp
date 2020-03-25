@@ -13,7 +13,7 @@ void test(double target, int maxVel, int minVel)
         moveBase(driveFB(target, maxVel, minVel));
 
         pros::delay(5);
-    }while(!fabs(error_Y) > 0.25);
+    }while(fabs(error_Y) > 0.25);
     brake();
 }
 void red15()
