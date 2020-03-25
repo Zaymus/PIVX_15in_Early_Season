@@ -9,7 +9,7 @@ void test(double target)
 {
     do
     {
-        moveBase(int(driveFB(target, maxVel, minVel)), 0, 0);
+        moveBase(0, 0, driveRot(target));
 
     }while(fabs(error_Y) > 0.25);
     brake();
