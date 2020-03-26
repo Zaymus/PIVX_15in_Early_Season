@@ -121,7 +121,7 @@ void print(void*)
             pros::lcd::print(4, "Arm:L:%dA, R:%dA Tilt:L:%dA, R:%dA",
                 arm1.get_current_draw(), arm2.get_current_draw(), tilter1.get_current_draw(), tilter2.get_current_draw());
         }
-        pros::delay(10);
+        pros::delay(5);
     }
 }
 
@@ -130,7 +130,7 @@ void drive(void*)
     while(true)
     {
         moveBase(y, x, a);//move base motors according to controller input
-        pros::delay(10);
+        pros::delay(5);
     }
 }
 
@@ -144,6 +144,6 @@ void intake(void*)
         RBIntake.move_velocity(intakePow);
         LBIntake.move_velocity(intakePow);
 
-        pros::delay(10);
+        pros::delay(5);
     }
 }
