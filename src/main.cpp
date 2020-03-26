@@ -3,6 +3,7 @@
 #include "Headers/Variables.hpp"
 #include "Headers/Functions.hpp"
 #include "Headers/Autonomous.hpp"
+#include "Headers/Tasks.hpp"
 #include <iostream>
 
 enum trayPositions {stopTray, low, score};
@@ -14,12 +15,7 @@ trayPositions trayPos = low;
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
-void initialize() {
-    pros::Task updateTask(update);
-	//pros::Task printTask(print);
-    pros::Task driveTask(drive);
-    pros::Task intakeTask(intake);
-}
+void initialize() {}
 
 /**
  * Runs while the robot is in the disabled state of Field Management System or
@@ -52,6 +48,9 @@ void competition_initialize() {}
  */
 void autonomous()
 {
+    printTask.suspend();
+    pros::delay(2000);
+    //driveTask.suspend();
     red15();
 }
 
@@ -75,6 +74,9 @@ void autonomous()
 
 void opcontrol()
 {
+    //driveTask.resume();
+    //updateTask.remove();
+    //printTask.resume();
 	while (true)
     {
         y = (master.get_analog(ANALOG_LEFT_Y) * (200.0/127.0));//forward back movement mapped to 200rpm
