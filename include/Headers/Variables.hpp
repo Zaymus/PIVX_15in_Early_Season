@@ -5,6 +5,8 @@
 
 extern pros::Controller master;
 
+extern bool Y_Settled, X_Settled, A_Settled;
+
 extern int y, x, a, intakePow;
 extern double kP_X, kD_X, P_X, D_X, pwr_X, error_X, lastError_X;
 extern double kP_Y, kD_Y, P_Y, D_Y, pwr_Y, error_Y, lastError_Y;
