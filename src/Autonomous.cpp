@@ -9,12 +9,27 @@ void test(double target, int maxVel, int minVel)
 {
     do
     {
-        autoDrive(0, 0, 90);
-        pros::delay(5);
-    }while(fabs(error_Y) > 0.20);
+        pros::lcd::print(0, "target: %d", target);
+        pros::lcd::print(1, "current: %d", degToRad(global_angle));
+        pros::lcd::print(2, "error: %d", error_A);
+        error_A = target - global_angle;
+
+        P_A = error_A * kP_A;
+        D_A = (error_A - lastError_A) * kD_A;
+        lastError_A = error_A;
+
+        pwr_A = P_A + D_A;
+
+        //overrides power if it is too high or too low or if target has been reached
+        fabs(error_A) <= degToRad(0.25) ? pwr_A = 0 : pwr_A > maxVel ? pwr_A = maxVel : pwr_A < minVel ? pwr_A = minVel : pwr_A = pwr_A;
+        moveBase(0, 0, pwr_A);
+    }while(fabs(error_A > degToRad(0.25)));
     brake();
 }
+
 void red15()
 {
-    autoDrive(0, 0, 90);
+    //autoDrive(0, 0, 90);
+    pros::lcd::initialize();
+    test(90, 70, 15);
 }

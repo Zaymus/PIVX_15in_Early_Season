@@ -48,9 +48,7 @@ void competition_initialize() {}
  */
 void autonomous()
 {
-    printTask.suspend();
-    pros::delay(2000);
-    //driveTask.suspend();
+    driveTask.suspend();
     red15();
 }
 
@@ -74,8 +72,8 @@ void autonomous()
 
 void opcontrol()
 {
-    //driveTask.resume();
-    //updateTask.remove();
+    driveTask.resume();
+    updateTask.remove();
     //printTask.resume();
 	while (true)
     {
