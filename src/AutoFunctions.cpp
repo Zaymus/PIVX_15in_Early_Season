@@ -3,6 +3,7 @@
 #include "Headers/Variables.hpp"
 #include "Headers/Motors.hpp"
 #include "Headers/Functions.hpp"
+#include "Headers/Tasks.hpp"
 
 //function that holds the motor position
 void brake()
@@ -29,7 +30,8 @@ int driveFB(double target, int maxVel, int minVel)
     pwr_Y = P_Y + D_Y;
 
     //overrides power if it is too high or too low or if target has been reached
-    fabs(error_Y) <= 0.25 ? pwr_Y = 0 : pwr_Y > maxVel ? pwr_Y = maxVel : pwr_Y < minVel ? pwr_Y = minVel : pwr_Y = pwr_Y;
+    pwr_Y > maxVel ? pwr_Y = maxVel : pwr_Y < minVel ? pwr_Y = minVel : pwr_Y = pwr_Y;
+    if (fabs(error_Y) <= 0.20) {Y_Settled = true; pwr_Y = 0;}
 
     return pwr_Y;//returns the pwr to function call
 }
@@ -46,7 +48,8 @@ int driveLR(double target, int maxVel, int minVel)
     pwr_X = P_X + D_X;
 
     //overrides power if it is too high or too low or if target has been reached
-    fabs(error_X) <= 0.25 ? pwr_X = 0 : pwr_X > maxVel ? pwr_X = maxVel : pwr_X < minVel ? pwr_X = minVel : pwr_X = pwr_X;
+    pwr_X > maxVel ? pwr_X = maxVel : pwr_X < minVel ? pwr_X = minVel : pwr_X = pwr_X;
+    if (fabs(error_X) <= 0.20) {X_Settled = true; pwr_X = 0;}
 
     return pwr_X;//returns the pwr to function call
 }
@@ -63,7 +66,8 @@ int driveRot(double target, int maxVel, int minVel)
     pwr_A = P_A + D_A;
 
     //overrides power if it is too high or too low or if target has been reached
-    fabs(error_A) <= degToRad(0.25) ? pwr_A = 0 : pwr_A > maxVel ? pwr_A = maxVel : pwr_A < minVel ? pwr_A = minVel : pwr_A = pwr_A;
+    pwr_A > maxVel ? pwr_A = maxVel : pwr_A < minVel ? pwr_A = minVel : pwr_A = pwr_A;
+    if (fabs(error_A) <= degToRad(0.25)) {A_Settled = true; pwr_A = 0;}
 
     return pwr_A;//returns the pwr to function call
 }
@@ -71,6 +75,7 @@ int driveRot(double target, int maxVel, int minVel)
 //function that uses x,y and angle correction functions above to set motor power until all 3 motions have settled
 void autoDrive(double y, double x, double a, int maxVelRot, int minVelRot, int maxVel, int minVel)
 {
+    X_Settled = false; Y_Settled = false; A_Settled = false;
     do
     {
         y = driveFB(y, maxVel, minVel);//sets forward/back translation to the pwr returned
@@ -79,6 +84,7 @@ void autoDrive(double y, double x, double a, int maxVelRot, int minVelRot, int m
         moveBase(y, x, a);//sends power to the base motors after function calls
 
         pros::delay(5);
-    }while(fabs(error_X) >= 0.25 && fabs(error_Y) >= 0.25 && fabs(error_A) >= degToRad(0.25));//stops looping when all translations and rotations are settled
+    }while(!X_Settled && !Y_Settled && !A_Settled);//stops looping when all translations and rotations are settled
+    printTask.resume();
     brake();//holds the motor positions
 }

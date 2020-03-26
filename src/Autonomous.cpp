@@ -9,18 +9,12 @@ void test(double target, int maxVel, int minVel)
 {
     do
     {
-        pros::lcd::print(0, "target: %d\terror: %d", target, error_Y);
-        moveBase(driveFB(target, maxVel, minVel));
-
+        autoDrive(0, 0, 90);
         pros::delay(5);
-    }while(fabs(error_Y) > 0.25);
+    }while(fabs(error_Y) > 0.20);
     brake();
 }
 void red15()
 {
-    test(24, 200, 20);
-    // while(true)
-    // {
-    // moveBase(0, 200, 0);
-    // }
+    autoDrive(0, 0, 90);
 }
