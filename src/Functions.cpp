@@ -96,6 +96,7 @@ void print(void*)
     {
         pros::lcd::print(0, "tPot:%d, aPot:%d\n", trayPot.get_value_calibrated(), armPot.get_value_calibrated());
         pros::lcd::print(1, "X:%f, Y:%f, A:%f\n", xcoord, ycoord, radToDeg(global_angle));
+        pros::lcd::print(5, "Y:%Z, X:%Z, A:%Z\n", Y_Settled, X_Settled, A_Settled);
         //print potentiometer values and coordinate location and angle of the bot
         if(target <= pros::millis())
         {

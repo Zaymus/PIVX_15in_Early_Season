@@ -9,9 +9,6 @@ void test(double target, int maxVel, int minVel)
 {
     do
     {
-        pros::lcd::print(0, "target: %d", target);
-        pros::lcd::print(1, "current: %d", degToRad(global_angle));
-        pros::lcd::print(2, "error: %d", error_A);
         error_A = target - global_angle;
 
         P_A = error_A * kP_A;
@@ -30,6 +27,6 @@ void test(double target, int maxVel, int minVel)
 void red15()
 {
     //autoDrive(0, 0, 90);
-    pros::lcd::initialize();
+    //pros::lcd::initialize();
     test(90, 70, 15);
 }
