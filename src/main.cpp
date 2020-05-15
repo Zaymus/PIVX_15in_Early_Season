@@ -48,8 +48,18 @@ void competition_initialize() {}
  */
 void autonomous()
 {
-    driveTask.suspend();
-    red15();
+    printTask.suspend();
+    pros::lcd::print(1, "temp");
+    pros::lcd::clear();
+    if(pros::usd::is_installed() == 1)
+    {
+        driveTask.suspend();
+        red15();
+    }
+    else
+    {
+        pros::lcd::print(1, "error: sd card not detected");
+    }
 }
 
 // pros::vision_signature_s_t GREEN_CUBE (1, -7419, -5305, -6362, -3343, -1655, -2499, 3.000);
